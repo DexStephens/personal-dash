@@ -1,0 +1,50 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.card {
+  min-width: 50vw;
+  min-height: 60vh;
+  background-color: whitesmoke;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  border-radius: 1%;
+
+  .title {
+    text-align: center;
+    font-size: x-large;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.component-selector {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.component-pill {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-color: lightblue;
+  gap: 1rem;
+  padding: 1px 10px;
+
+  height: 30px;
+  border-radius: 16px;
+}
+
+.component-pill:hover {
+  border: 1px solid grey;
+}

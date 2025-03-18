@@ -32,3 +32,10 @@
    libraries into your project. (E.g. Google’s JavaScript Maps API is a third-party
    library.) Integrating libraries is a skill you will most definitely need as a professional
    web developer
+
+To Do:
+
+- Create landing page, where they can signup or login
+- Start styling the setup
+- Finish building out the initial walk through process
+- Setup top level user context, and auto user logging in for oauth
