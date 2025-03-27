@@ -1,4 +1,7 @@
 import { useState } from "react";
+import ComponentSelection from "./ComponentSelection";
+import OAuthSetup from "./OAuthSetup";
+import { useParams } from "react-router";
 
 type StepOption = 1 | 2 | 3 | 4;
 
@@ -17,7 +20,11 @@ const stepData = {
   },
 };
 
-export default function WalkThrough() {
+export default function Setup() {
+  const params = useParams();
+
+  console.log("Params", params);
+
   const [step, setStep] = useState<StepOption>(1);
 
   const [components, setComponents] = useState<string[]>([]);
@@ -50,50 +57,6 @@ export default function WalkThrough() {
           Next Arrow
         </button>
       </div>
-    </div>
-  );
-}
-
-const components = ["Calendar", "Goals", "Documents", "To-Do", "Contact"];
-
-function ComponentSelection({
-  selected,
-  setSelected,
-}: {
-  selected: string[];
-  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
-}) {
-  return (
-    <div className="component-selector">
-      {components.map((component) => (
-        <div
-          className="component-pill"
-          style={{
-            backgroundColor: selected.includes(component) ? "red" : "lightblue",
-          }}
-          onClick={() =>
-            setSelected((current) => {
-              if (current.includes(component)) {
-                return current.filter((value) => value !== component);
-              } else {
-                return [...current, component];
-              }
-            })
-          }
-        >
-          <p>{component}</p>
-          <p>C</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function OAuthSetup() {
-  return (
-    <div>
-      {/* some sort of bubbled list that changes color when selected */}
-      oauth setup
     </div>
   );
 }
