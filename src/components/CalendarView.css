@@ -16,8 +16,14 @@
   flex-direction: column;
 }
 
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
 .calendar h2 {
-  margin-bottom: 10px;
   text-align: center;
 }
 

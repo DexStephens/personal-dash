@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useCalendarDataContext } from "../context/CalendarDataContextHook";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "./CalendarView.css";
 const months = [
   "January",
@@ -28,6 +30,7 @@ const days = [
 
 export function CalendarView() {
   const { events } = useCalendarDataContext();
+  console.log(events);
 
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
@@ -73,14 +76,28 @@ export function CalendarView() {
   const monthDays = new Date(year, month + 1, 0).getDate();
   const startDay = new Date(year, month, 1).getDay();
 
-  console.log(currentDay, dayOfWeek, monthDays, year, month, startDay);
+  const updateMonth = (newMonth: number) => {
+    if (newMonth < 0) {
+      setMonth(11);
+      setYear(year - 1);
+    } else if (newMonth > 11) {
+      setMonth(0);
+      setYear(year + 1);
+    } else {
+      setMonth(newMonth);
+    }
+  };
 
   return (
     <div className="calendar-container">
       <div className="calendar">
-        <h2>
-          {months[month]} {year}
-        </h2>
+        <div className="calendar-header">
+          <ChevronLeftIcon onClick={() => updateMonth(month - 1)} />
+          <h2>
+            {months[month]} {year}
+          </h2>
+          <ChevronRightIcon onClick={() => updateMonth(month + 1)} />
+        </div>
         <div className="calendar-grid">
           {/* Day headers */}
           {days.map((day) => (
