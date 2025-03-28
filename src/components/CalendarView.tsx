@@ -28,7 +28,6 @@ const days = [
 
 export function CalendarView() {
   const { events } = useCalendarDataContext();
-  console.log("events", events);
 
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
