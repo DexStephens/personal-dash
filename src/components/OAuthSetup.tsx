@@ -3,17 +3,27 @@ import { getCalendarEvents, getCalendarIds } from "../utils/googleApi.util";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../utils/microsoftAuth.config";
 import { callMsGraph } from "../utils/microsoftApi.util";
+import { useCalendarDataContext } from "../context/CalendarDataContextHook";
+import { parseGoogleEvents } from "../utils/calendar.util";
+import { useNavigate } from "react-router";
 
 const googleScopes = ["https://www.googleapis.com/auth/calendar"];
 
 export default function OAuthSetup() {
+  const navigate = useNavigate();
+  const { setEvents } = useCalendarDataContext();
   const { instance, accounts, inProgress } = useMsal();
 
   const onGoogleConnect = async (token: TokenResponse) => {
     // NEEDSWORK: segment this into pull which calendar I want to pull, and also which documents I want to pull
     const calendars: any = await getCalendarIds(token.access_token);
     // NEEDSWORK: display their calendars and determine which one they want to use to pull events for
-    getCalendarEvents(token.access_token, calendars.items[0].id);
+    const response = await getCalendarEvents(
+      token.access_token,
+      calendars.items[0].id
+    );
+    setEvents(parseGoogleEvents(response.items));
+    navigate("/");
   };
 
   async function requestProfileData() {
