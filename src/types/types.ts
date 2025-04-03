@@ -8,6 +8,12 @@ export interface CalendarEvent {
 }
 
 export type CalendarContextType = {
+  calendarData: CalendarData;
+  setCalendarData: React.Dispatch<React.SetStateAction<CalendarData>>;
+};
+
+export type CalendarData = {
+  publicId: string;
+  accessToken: string;
   events: CalendarEvent[];
-  setEvents: React.Dispatch<React.SetStateAction<CalendarEvent[]>>;
 };

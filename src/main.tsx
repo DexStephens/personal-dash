@@ -4,8 +4,8 @@ import "./index.css";
 import App from "./App.tsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { BrowserRouter, Routes, Route } from "react-router";
-import Setup from "./components/Setup.tsx";
 import { CalendarDataProvider } from "./context/CalendarDataProvider.tsx";
+import OAuthSetup from "./components/OAuthSetup.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -14,7 +14,7 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/setup" element={<Setup />} />
+            <Route path="/setup" element={<OAuthSetup />} />
           </Routes>
         </BrowserRouter>
       </CalendarDataProvider>

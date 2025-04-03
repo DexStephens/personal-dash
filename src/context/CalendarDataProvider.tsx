@@ -1,11 +1,21 @@
 import { ReactNode, useState } from "react";
 import { CalendarDataContext } from "./CalendarData";
-import { CalendarEvent } from "../types/types";
+import { CalendarData } from "../types/types";
 
 export function CalendarDataProvider({ children }: { children: ReactNode }) {
-  const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [calendarData, setCalendarData] = useState<CalendarData>({
+    publicId: "",
+    accessToken: "",
+    events: [],
+  });
+
   return (
-    <CalendarDataContext.Provider value={{ events, setEvents }}>
+    <CalendarDataContext.Provider
+      value={{
+        calendarData,
+        setCalendarData,
+      }}
+    >
       {children}
     </CalendarDataContext.Provider>
   );

@@ -1,14 +1,14 @@
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import { getCalendarEvents, getCalendarIds } from "../utils/googleApi.util";
 import { useCalendarDataContext } from "../context/CalendarDataContextHook";
-import { parseGoogleEvents } from "../utils/calendar.util";
 import { useNavigate } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 
 const googleScopes = ["https://www.googleapis.com/auth/calendar"];
 
 export default function OAuthSetup() {
   const navigate = useNavigate();
-  const { setEvents } = useCalendarDataContext();
+  const { setCalendarData } = useCalendarDataContext();
 
   const onGoogleConnect = async (token: TokenResponse) => {
     // NEEDSWORK: segment this into pull which calendar I want to pull, and also which documents I want to pull
@@ -18,7 +18,11 @@ export default function OAuthSetup() {
       token.access_token,
       calendars.items[0].id
     );
-    setEvents(events);
+    setCalendarData({
+      publicId: uuidv4(),
+      accessToken: token.access_token,
+      events,
+    });
     navigate("/");
   };
 

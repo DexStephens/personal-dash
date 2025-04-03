@@ -29,18 +29,16 @@ const days = [
 ];
 
 export function CalendarView() {
-  const { events } = useCalendarDataContext();
-  console.log(events);
+  const { calendarData } = useCalendarDataContext();
 
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
-  const [date, setDate] = useState(new Date());
 
   const monthEvents = useMemo(() => {
     const startOfMonth = new Date(year, month, 1);
     const endOfMonth = new Date(year, month + 1, 0);
 
-    return events.filter((event) => {
+    return calendarData.events.filter((event) => {
       const eventStart = new Date(event.start);
       const eventEnd = new Date(event.end);
 
@@ -50,7 +48,7 @@ export function CalendarView() {
         (eventStart <= startOfMonth && eventEnd >= endOfMonth)
       );
     });
-  }, [events, month, year]);
+  }, [calendarData.events, month, year]);
 
   const getDayEvents = useCallback(
     (day: number) => {
@@ -71,8 +69,6 @@ export function CalendarView() {
     [monthEvents, month, year]
   );
 
-  const currentDay = date.getDate();
-  const dayOfWeek = date.getDay();
   const monthDays = new Date(year, month + 1, 0).getDate();
   const startDay = new Date(year, month, 1).getDay();
 
