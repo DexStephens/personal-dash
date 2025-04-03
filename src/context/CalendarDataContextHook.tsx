@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { use } from "react";
 import { CalendarContextType } from "../types/types";
 import { CalendarDataContext } from "./CalendarData";
 
 export function useCalendarDataContext(): CalendarContextType {
-  const context = useContext(CalendarDataContext);
+  const context = use(CalendarDataContext);
 
   if (!context) {
     throw new Error(

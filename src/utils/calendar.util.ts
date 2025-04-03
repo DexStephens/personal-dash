@@ -12,7 +12,3 @@ export function parseGoogleEvents(events: any[]): CalendarEvent[] {
       description: event.description || "",
     }));
 }
-
-export function parseMicrosoftEvents(): CalendarEvent[] {
-  return [];
-}
