@@ -1,0 +1,23 @@
+.setup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.google-signin {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 14vw;
+  color: black;
+  background-color: white;
+  height: 6vh;
+  border-radius: 2vh;
+}
+
+.google-signin:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}

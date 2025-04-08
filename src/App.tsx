@@ -7,11 +7,31 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import SettingsSharpIcon from "@mui/icons-material/SettingsSharp";
 import { useCalendarDataContext } from "./context/CalendarDataContextHook";
 import { useNavigate } from "react-router";
+import { establishGoogleData } from "./utils/googleApi.util";
 
 type ViewOption = "List" | "Calendar";
 
 function App() {
-  const { calendarData } = useCalendarDataContext();
+  const { calendarData, setCalendarData } = useCalendarDataContext();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      if (calendarData.accessToken) {
+        const events = await establishGoogleData(calendarData.accessToken);
+
+        setCalendarData((prev) => ({
+          ...prev,
+          events: events,
+        }));
+        setLoading(false);
+      }
+    };
+    if (calendarData.accessToken) {
+      fetchEvents();
+    }
+  }, [calendarData.accessToken, setCalendarData]);
+
   const [view, setView] = useState<ViewOption>("Calendar");
   const navigate = useNavigate();
 
@@ -34,8 +54,13 @@ function App() {
           <SettingsSharpIcon />
         </div>
       </div>
+
       <div className="main">
-        {view === "List" ? <ListView /> : <CalendarView />}
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>{view === "List" ? <ListView /> : <CalendarView />}</>
+        )}
       </div>
     </>
   );

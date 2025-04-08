@@ -1,8 +1,9 @@
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
-import { getCalendarEvents, getCalendarIds } from "../utils/googleApi.util";
 import { useCalendarDataContext } from "../context/CalendarDataContextHook";
 import { useNavigate } from "react-router";
 import { v4 as uuidv4 } from "uuid";
+import GoogleIcon from "@mui/icons-material/Google";
+import "./Setup.css";
 
 const googleScopes = ["https://www.googleapis.com/auth/calendar"];
 
@@ -11,17 +12,10 @@ export default function OAuthSetup() {
   const { setCalendarData } = useCalendarDataContext();
 
   const onGoogleConnect = async (token: TokenResponse) => {
-    // NEEDSWORK: segment this into pull which calendar I want to pull, and also which documents I want to pull
-    const calendars: any = await getCalendarIds(token.access_token);
-    // NEEDSWORK: display their calendars and determine which one they want to use to pull events for
-    const events = await getCalendarEvents(
-      token.access_token,
-      calendars.items[0].id
-    );
     setCalendarData({
       publicId: uuidv4(),
       accessToken: token.access_token,
-      events,
+      events: [],
     });
     navigate("/");
   };
@@ -39,9 +33,16 @@ export default function OAuthSetup() {
   });
 
   return (
-    <div>
-      {/* some sort of bubbled list that changes color when selected */}
-      <div onClick={() => loginWithGoogle()}>Login with google</div>
+    <div className="setup-container">
+      <h1>Connect your Personal Calendar</h1>
+      <p>
+        To get started, please sign in with your Google account. This will allow
+        us to access your calendar events.
+      </p>
+      <div className="google-signin" onClick={() => loginWithGoogle()}>
+        <GoogleIcon />
+        Sign in with Google
+      </div>
     </div>
   );
 }
