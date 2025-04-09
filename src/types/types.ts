@@ -9,7 +9,7 @@ export interface CalendarEvent {
 
 export type CalendarContextType = {
   calendarData: CalendarData;
-  setCalendarData: React.Dispatch<React.SetStateAction<CalendarData>>;
+  setCalendarDataWithSync: (data: CalendarData) => void;
 };
 
 export type CalendarData = {

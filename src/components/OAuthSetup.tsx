@@ -9,10 +9,10 @@ const googleScopes = ["https://www.googleapis.com/auth/calendar"];
 
 export default function OAuthSetup() {
   const navigate = useNavigate();
-  const { setCalendarData } = useCalendarDataContext();
+  const { setCalendarDataWithSync } = useCalendarDataContext();
 
   const onGoogleConnect = async (token: TokenResponse) => {
-    setCalendarData({
+    setCalendarDataWithSync({
       publicId: uuidv4(),
       accessToken: token.access_token,
       events: [],

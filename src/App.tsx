@@ -12,25 +12,27 @@ import { establishGoogleData } from "./utils/googleApi.util";
 type ViewOption = "List" | "Calendar";
 
 function App() {
-  const { calendarData, setCalendarData } = useCalendarDataContext();
+  const { calendarData, setCalendarDataWithSync } = useCalendarDataContext();
   const [loading, setLoading] = useState(true);
+  const [initialCall, setInitialCall] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
       if (calendarData.accessToken) {
         const events = await establishGoogleData(calendarData.accessToken);
 
-        setCalendarData((prev) => ({
-          ...prev,
+        setInitialCall(true);
+        setCalendarDataWithSync({
+          ...calendarData,
           events: events,
-        }));
+        });
         setLoading(false);
       }
     };
-    if (calendarData.accessToken) {
+    if (calendarData.accessToken && !initialCall) {
       fetchEvents();
     }
-  }, [calendarData.accessToken, setCalendarData]);
+  }, [calendarData, initialCall, setCalendarDataWithSync]);
 
   const [view, setView] = useState<ViewOption>("Calendar");
   const navigate = useNavigate();
