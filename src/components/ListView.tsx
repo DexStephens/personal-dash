@@ -62,7 +62,7 @@ export function ListView() {
   }, [events]);
 
   return (
-    <div style={{ overflowY: "scroll", maxHeight: "80vh" }}>
+    <div className="list-view-container">
       {Object.entries(eventsCategorized).map(([year, months]) => (
         <div key={year} style={{ marginBottom: "2rem" }}>
           <h1 className="list-view-year">{year}</h1>
