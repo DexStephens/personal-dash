@@ -1,13 +1,16 @@
 import { CalendarEvent } from "../types/types";
 import { parseGoogleEvents } from "./calendar.util";
 
-export function establishGoogleData(accessToken: string) {
-  const promise = getCalendarIds(accessToken).then((calendars: any) => {
-    // Optionally let user pick calendar later
-    return getCalendarEvents(accessToken, calendars.items[0].id);
-  });
+export async function establishGoogleData(accessToken: string) {
+  try {
+    const calendars = await getCalendarIds(accessToken);
 
-  return promise; // This is what you pass into `use()`
+    const events = await getCalendarEvents(accessToken, calendars.items[0].id);
+
+    return events;
+  } catch {
+    return null;
+  }
 }
 
 export async function getCalendarIds(accessToken: string) {

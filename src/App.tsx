@@ -22,10 +22,20 @@ function App() {
         const events = await establishGoogleData(calendarData.accessToken);
 
         setInitialCall(true);
-        setCalendarDataWithSync({
-          ...calendarData,
-          events: events,
-        });
+
+        if (events === null) {
+          setCalendarDataWithSync({
+            publicId: "",
+            accessToken: "",
+            events: [],
+          });
+        } else {
+          setCalendarDataWithSync({
+            ...calendarData,
+            events: events,
+          });
+        }
+
         setLoading(false);
       }
     };

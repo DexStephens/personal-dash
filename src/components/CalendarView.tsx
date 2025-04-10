@@ -3,31 +3,7 @@ import { useCalendarDataContext } from "../context/CalendarDataContextHook";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "./CalendarView.css";
-
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+import { DAYS, MONTHS } from "../utils/constants.util";
 
 export function CalendarView() {
   const { calendarData } = useCalendarDataContext();
@@ -91,13 +67,13 @@ export function CalendarView() {
         <div className="calendar-header">
           <ChevronLeftIcon onClick={() => updateMonth(month - 1)} />
           <h2>
-            {months[month]} {year}
+            {MONTHS[month]} {year}
           </h2>
           <ChevronRightIcon onClick={() => updateMonth(month + 1)} />
         </div>
         <div className="calendar-grid">
           {/* Day headers */}
-          {days.map((day) => (
+          {DAYS.map((day) => (
             <div key={day} className="calendar-header">
               {day}
             </div>
