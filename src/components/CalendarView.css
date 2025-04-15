@@ -74,3 +74,8 @@
   border-radius: 3px;
   font-size: 0.7rem;
 }
+
+.event:hover {
+  background-color: #007bff;
+  cursor: pointer;
+}

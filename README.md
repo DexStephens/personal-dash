@@ -35,7 +35,10 @@
 
 To Do:
 
-- Create landing page, where they can signup or login
-- Start styling the setup
-- Finish building out the initial walk through process
-- Setup top level user context, and auto user logging in for oauth
+- Update data and call google post api
+- Remove all any types
+- Error handling for api requests
+- Check to make sure all proper use cases for types are used
+- Is project structure how I would want it to be?
+- Responsive design for mobile devices
+- Make it beautiful...

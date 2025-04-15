@@ -4,9 +4,14 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "./CalendarView.css";
 import { DAYS, MONTHS } from "../utils/constants.util";
+import { CalendarDetailModal } from "./CalendarDetailModal";
+import { CalendarEvent } from "../types/types";
 
 export function CalendarView() {
   const { calendarData } = useCalendarDataContext();
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
+    null
+  );
 
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
@@ -62,51 +67,55 @@ export function CalendarView() {
   };
 
   return (
-    <div className="calendar-container">
-      <div className="calendar">
-        <div className="calendar-header">
-          <ChevronLeftIcon onClick={() => updateMonth(month - 1)} />
-          <h2>
-            {MONTHS[month]} {year}
-          </h2>
-          <ChevronRightIcon onClick={() => updateMonth(month + 1)} />
-        </div>
-        <div className="calendar-grid">
-          {/* Day headers */}
-          {DAYS.map((day) => (
-            <div key={day} className="calendar-header">
-              {day}
-            </div>
-          ))}
+    <>
+      <CalendarDetailModal
+        onClose={() => setSelectedEvent(null)}
+        eventDetails={selectedEvent}
+      />
+      <div className="calendar-container">
+        <div className="calendar">
+          <div className="calendar-header">
+            <ChevronLeftIcon onClick={() => updateMonth(month - 1)} />
+            <h2>
+              {MONTHS[month]} {year}
+            </h2>
+            <ChevronRightIcon onClick={() => updateMonth(month + 1)} />
+          </div>
+          <div className="calendar-grid">
+            {/* Day headers */}
+            {DAYS.map((day) => (
+              <div key={day} className="calendar-header">
+                {day}
+              </div>
+            ))}
 
-          {/* Calendar Days */}
-          {Array.from({ length: startDay }).map((_, index) => (
-            <div key={`empty-${index}`} className="calendar-day empty"></div>
-          ))}
+            {/* Calendar Days */}
+            {Array.from({ length: startDay }).map((_, index) => (
+              <div key={`empty-${index}`} className="calendar-day empty"></div>
+            ))}
 
-          {Array.from({ length: monthDays }).map((_, index) => (
-            <div key={index} className="calendar-day">
-              <span className="day-number">
-                {index + 1}
-                {getDayEvents(index + 1).map((dayEvent) => {
-                  return (
-                    <div key={dayEvent.externalId} className="event">
-                      <a
-                        href={dayEvent.externalLink}
-                        target="_blank"
-                        rel="noreferrer"
+            {Array.from({ length: monthDays }).map((_, index) => (
+              <div key={index} className="calendar-day">
+                <span className="day-number">
+                  {index + 1}
+                  {getDayEvents(index + 1).map((dayEvent) => {
+                    return (
+                      <div
+                        key={dayEvent.externalId}
+                        className="event"
+                        onClick={() => setSelectedEvent(dayEvent)}
                       >
                         {dayEvent.title}
-                      </a>
-                      <p>{dayEvent.description}</p>
-                    </div>
-                  );
-                })}
-              </span>
-            </div>
-          ))}
+                        <p>{dayEvent.description}</p>
+                      </div>
+                    );
+                  })}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
