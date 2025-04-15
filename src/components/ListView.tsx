@@ -51,18 +51,19 @@ export function ListView() {
     );
 
     if (nextEvent) {
+      const container = document.getElementById("list-view-container");
       const ref = eventRefs.current.get(nextEvent.externalId);
-      if (ref) {
-        ref.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
+      if (container && ref) {
+        container.scrollTo({
+          top: ref.offsetTop - container.offsetTop,
+          behavior: "instant",
         });
       }
     }
   }, [events]);
 
   return (
-    <div className="list-view-container">
+    <div className="list-view-container" id="list-view-container">
       {Object.entries(eventsCategorized).map(([year, months]) => (
         <div key={year} style={{ marginBottom: "2rem" }}>
           <h1 className="list-view-year">{year}</h1>

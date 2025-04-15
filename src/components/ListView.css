@@ -1,6 +1,6 @@
 .list-view-container {
   overflow-y: scroll;
-  max-height: 100vh;
+  max-height: calc(100vh - var(--header-height));
 }
 
 .list-item {

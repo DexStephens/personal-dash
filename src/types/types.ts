@@ -17,3 +17,5 @@ export type CalendarData = {
   accessToken: string;
   events: CalendarEvent[];
 };
+
+export type ViewOption = "List" | "Calendar";
