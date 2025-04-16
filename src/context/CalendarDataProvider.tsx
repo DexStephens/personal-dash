@@ -11,6 +11,7 @@ export function CalendarDataProvider({ children }: { children: ReactNode }) {
   const [calendarData, setCalendarData] = useState<CalendarData>({
     publicId: parsedData?.publicId ?? "",
     accessToken: parsedData?.accessToken ?? "",
+    calendarId: parsedData?.calendarId ?? "",
     events: parsedData?.events ?? [],
   });
 

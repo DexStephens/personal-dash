@@ -12,9 +12,11 @@ export default function OAuthSetup() {
   const { setCalendarDataWithSync } = useCalendarDataContext();
 
   const onGoogleConnect = async (token: TokenResponse) => {
+    console.log("Google token", token);
     setCalendarDataWithSync({
       publicId: uuidv4(),
       accessToken: token.access_token,
+      calendarId: "",
       events: [],
     });
     navigate("/");

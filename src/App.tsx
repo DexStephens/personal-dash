@@ -16,20 +16,22 @@ function App() {
   useEffect(() => {
     const fetchEvents = async () => {
       if (calendarData.accessToken) {
-        const events = await establishGoogleData(calendarData.accessToken);
+        const googleData = await establishGoogleData(calendarData.accessToken);
 
         setInitialCall(true);
 
-        if (events === null) {
+        if (googleData === null) {
           setCalendarDataWithSync({
             publicId: "",
             accessToken: "",
+            calendarId: "",
             events: [],
           });
         } else {
           setCalendarDataWithSync({
             ...calendarData,
-            events: events,
+            calendarId: googleData.calendarId,
+            events: googleData.events,
           });
         }
 

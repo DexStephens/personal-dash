@@ -7,7 +7,10 @@ export async function establishGoogleData(accessToken: string) {
 
     const events = await getCalendarEvents(accessToken, calendars.items[0].id);
 
-    return events;
+    return {
+      events,
+      calendarId: calendars.items[0].id,
+    };
   } catch {
     return null;
   }
@@ -80,5 +83,50 @@ export async function getCalendarEvents(
   } catch (error) {
     console.error("Error fetching calendar list:", error);
     return [];
+  }
+}
+
+export async function updateCalendarEvent(
+  updatedEvent: CalendarEvent,
+  calendarId: string,
+  accessToken: string
+) {
+  const { externalId, title, description, start, end } = updatedEvent;
+  console.log(calendarId, externalId);
+  try {
+    const response = await fetch(
+      `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${externalId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          summary: title,
+          description: description,
+          start: {
+            dateTime: start.toISOString(),
+            timeZone: "UTC",
+          },
+          end: {
+            dateTime: end.toISOString(),
+            timeZone: "UTC",
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    return data; // Return the data for further use if needed
+  } catch (error) {
+    console.error("Error updating calendar event:", error);
+    return null;
   }
 }

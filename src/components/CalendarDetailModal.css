@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(15, 15, 15, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,22 +12,73 @@
 }
 
 .modal-content {
-  background: white;
+  background: #1e1e1e;
+  color: #f1f1f1;
   padding: 2rem;
   border-radius: 12px;
   width: 90%;
-  max-width: 400px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
   position: relative;
 }
 
 .modal-close {
   position: absolute;
-  top: 0.5rem;
-  right: 0.75rem;
+  top: 0.75rem;
+  right: 1rem;
   background: none;
   border: none;
   font-size: 1.5rem;
+  color: #aaa;
   cursor: pointer;
-  color: #888;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.modal-form input,
+.modal-form textarea {
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #2c2c2c;
+  color: #f1f1f1;
+  font-size: 0.95rem;
+}
+
+.modal-form textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.edit-button {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  background: #4a90e2;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.edit-button:hover {
+  background: #357acb;
 }

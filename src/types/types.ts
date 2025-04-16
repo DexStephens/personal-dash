@@ -15,6 +15,7 @@ export type CalendarContextType = {
 export type CalendarData = {
   publicId: string;
   accessToken: string;
+  calendarId: string;
   events: CalendarEvent[];
 };
 
