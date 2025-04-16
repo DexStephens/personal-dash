@@ -1,6 +1,6 @@
-import { CalendarEvent } from "../types/types";
+import { CalendarEvent, GoogleApiEvent } from "../types/types";
 
-export function parseGoogleEvents(events: any[]): CalendarEvent[] {
+export function parseGoogleEvents(events: GoogleApiEvent[]): CalendarEvent[] {
   return events
     .filter((e) => e.status !== "cancelled")
     .map((event) => ({

@@ -35,10 +35,8 @@
 
 To Do:
 
-- Update data and call google post api
-- Remove all any types
+- Update local data when calling google post api
 - Error handling for api requests
 - Check to make sure all proper use cases for types are used
-- Is project structure how I would want it to be?
 - Responsive design for mobile devices
 - Make it beautiful...
