@@ -7,12 +7,13 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { CalendarDataProvider } from "./context/CalendarDataProvider.tsx";
 import OAuthSetup from "./components/OAuthSetup.tsx";
 import { ErrorBoundary } from "react-error-boundary";
+import { FallbackRender } from "./components/FallbackRender.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <CalendarDataProvider>
-        <ErrorBoundary fallback={<div>Something went wrong</div>}>
+        <ErrorBoundary FallbackComponent={FallbackRender}>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<App />} />

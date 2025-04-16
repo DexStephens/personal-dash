@@ -1,6 +1,5 @@
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import SettingsSharpIcon from "@mui/icons-material/SettingsSharp";
 import { ViewOption } from "../types/types";
 import "./Header.css";
 
@@ -20,7 +19,6 @@ export function Header({
         ) : (
           <FormatListBulletedIcon onClick={() => setView("List")} />
         )}
-        <SettingsSharpIcon />
       </div>
     </div>
   );

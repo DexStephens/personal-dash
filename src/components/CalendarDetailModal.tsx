@@ -49,8 +49,8 @@ export function CalendarDetailModal({
     }));
   };
 
-  const handleSubmit = async () => {
-    //NEEDSWORK: Any validation on my end to make sure start and end are filled in
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const result = await updateCalendarEvent(
       formData as CalendarEvent,
       calendarData.calendarId,
@@ -60,7 +60,7 @@ export function CalendarDetailModal({
     if (result !== null) {
       onClose(parseGoogleEvents([result])[0]);
     } else {
-      //NEEDSWORK: handle error here
+      throw new Error("Failed to update calendar event");
     }
   };
 
@@ -71,13 +71,14 @@ export function CalendarDetailModal({
           ×
         </button>
         <h2 className="modal-title">Edit Event</h2>
-        <form className="modal-form" onSubmit={(e) => e.preventDefault()}>
+        <form className="modal-form" onSubmit={handleSubmit}>
           <label>
             Title
             <input
               name="title"
               value={formData.title}
               onChange={handleChange}
+              required
             />
           </label>
           <label>
@@ -87,6 +88,7 @@ export function CalendarDetailModal({
               name="start"
               value={formData.start?.toISOString().slice(0, 16)}
               onChange={handleChange}
+              required
             />
           </label>
           <label>
@@ -96,6 +98,7 @@ export function CalendarDetailModal({
               name="end"
               value={formData.end?.toISOString().slice(0, 16)}
               onChange={handleChange}
+              required
             />
           </label>
           <label>
@@ -116,9 +119,7 @@ export function CalendarDetailModal({
             />
           </label>
 
-          <button className="edit-button" onClick={handleSubmit}>
-            Save Changes
-          </button>
+          <button className="edit-button">Save Changes</button>
         </form>
       </div>
     </div>,

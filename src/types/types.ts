@@ -226,3 +226,8 @@ export interface GoogleApiEvent {
   };
   eventType: string;
 }
+
+export type FallbackRenderProps = {
+  error: Error;
+  resetErrorBoundary: () => void;
+};

@@ -11,7 +11,7 @@
 
 To Do:
 
-- Error handling for api requests
 - Check to make sure all proper use cases for types are used
+- Make sure we just show the events we have if they already have events and the token is not expired, while loading in the background
 - Responsive design for mobile devices
 - Make it beautiful...

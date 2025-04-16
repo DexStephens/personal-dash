@@ -10,7 +10,7 @@ import { ViewOption } from "./types/types";
 
 function App() {
   const { calendarData, setCalendarDataWithSync } = useCalendarDataContext();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(calendarData.events.length === 0);
   const [initialCall, setInitialCall] = useState(false);
 
   useEffect(() => {

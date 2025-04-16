@@ -101,7 +101,6 @@ export async function updateCalendarEvent(
   accessToken: string
 ) {
   const { externalId, title, description, start, end } = updatedEvent;
-  console.log(calendarId, externalId);
   try {
     const data = await googleRequest<GoogleApiEvent>(
       "PUT",

@@ -12,7 +12,6 @@ export default function OAuthSetup() {
   const { setCalendarDataWithSync } = useCalendarDataContext();
 
   const onGoogleConnect = async (token: TokenResponse) => {
-    console.log("Google token", token);
     setCalendarDataWithSync({
       publicId: uuidv4(),
       accessToken: token.access_token,
@@ -25,7 +24,7 @@ export default function OAuthSetup() {
   const onGoogleError = (
     e: Pick<TokenResponse, "error" | "error_description" | "error_uri">
   ) => {
-    console.log("Google error", e);
+    throw new Error(e.error_description);
   };
 
   const loginWithGoogle = useGoogleLogin({
