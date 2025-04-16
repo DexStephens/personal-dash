@@ -8,7 +8,7 @@ import { CalendarDetailModal } from "./CalendarDetailModal";
 import { CalendarEvent } from "../types/types";
 
 export function CalendarView() {
-  const { calendarData } = useCalendarDataContext();
+  const { calendarData, setCalendarDataWithSync } = useCalendarDataContext();
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
     null
   );
@@ -66,10 +66,25 @@ export function CalendarView() {
     }
   };
 
+  const handleModalClose = (eventDetails?: CalendarEvent) => {
+    setSelectedEvent(null);
+
+    if (eventDetails !== undefined) {
+      const otherEvents = calendarData.events.filter(
+        (e) => e.externalId !== eventDetails.externalId
+      );
+      const updatedEvents = [...otherEvents, eventDetails];
+      setCalendarDataWithSync({
+        ...calendarData,
+        events: updatedEvents,
+      });
+    }
+  };
+
   return (
     <>
       <CalendarDetailModal
-        onClose={() => setSelectedEvent(null)}
+        onClose={handleModalClose}
         eventDetails={selectedEvent}
       />
       <div className="calendar-container">

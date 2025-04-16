@@ -5,7 +5,7 @@ import "./ListView.css";
 import { CalendarDetailModal } from "./CalendarDetailModal";
 
 export function ListView() {
-  const { calendarData } = useCalendarDataContext();
+  const { calendarData, setCalendarDataWithSync } = useCalendarDataContext();
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
     null
   );
@@ -65,11 +65,26 @@ export function ListView() {
     }
   }, [events]);
 
+  const handleModalClose = (eventDetails?: CalendarEvent) => {
+    setSelectedEvent(null);
+
+    if (eventDetails !== undefined) {
+      const otherEvents = calendarData.events.filter(
+        (e) => e.externalId !== eventDetails.externalId
+      );
+      const updatedEvents = [...otherEvents, eventDetails];
+      setCalendarDataWithSync({
+        ...calendarData,
+        events: updatedEvents,
+      });
+    }
+  };
+
   return (
     <>
       <CalendarDetailModal
         eventDetails={selectedEvent}
-        onClose={() => setSelectedEvent(null)}
+        onClose={handleModalClose}
       />
       <div className="list-view-container" id="list-view-container">
         {Object.entries(eventsCategorized).map(([year, months]) => (

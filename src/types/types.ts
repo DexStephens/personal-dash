@@ -22,7 +22,7 @@ export type CalendarData = {
 export type ViewOption = "List" | "Calendar";
 
 export type CalendarDetailModalProps = {
-  onClose: () => void;
+  onClose: (eventDetails?: CalendarEvent) => void;
   eventDetails: CalendarEvent | null;
 };
 

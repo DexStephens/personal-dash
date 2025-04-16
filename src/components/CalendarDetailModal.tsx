@@ -4,6 +4,7 @@ import { CalendarDetailModalProps, CalendarEvent } from "../types/types";
 import { useEffect, useState } from "react";
 import { updateCalendarEvent } from "../utils/googleApi.util";
 import { useCalendarDataContext } from "../context/CalendarDataContextHook";
+import { parseGoogleEvents } from "../utils/calendar.util";
 
 // NEEDSWORK: fix timezone mismatch
 
@@ -48,19 +49,25 @@ export function CalendarDetailModal({
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     //NEEDSWORK: Any validation on my end to make sure start and end are filled in
-    updateCalendarEvent(
+    const result = await updateCalendarEvent(
       formData as CalendarEvent,
       calendarData.calendarId,
       calendarData.accessToken
     );
+
+    if (result !== null) {
+      onClose(parseGoogleEvents([result])[0]);
+    } else {
+      //NEEDSWORK: handle error here
+    }
   };
 
   return createPortal(
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={() => onClose()}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>
+        <button className="modal-close" onClick={() => onClose()}>
           ×
         </button>
         <h2 className="modal-title">Edit Event</h2>
