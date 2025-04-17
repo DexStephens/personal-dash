@@ -4,7 +4,10 @@ import { CalendarDetailModalProps, CalendarEvent } from "../types/types";
 import { useEffect, useState } from "react";
 import { updateCalendarEvent } from "../utils/googleApi.util";
 import { useCalendarDataContext } from "../context/CalendarDataContextHook";
-import { parseGoogleEvents } from "../utils/calendar.util";
+import {
+  parseGoogleEvents,
+  toLocalDatetimeInputValue,
+} from "../utils/calendar.util";
 
 // NEEDSWORK: fix timezone mismatch
 
@@ -86,7 +89,9 @@ export function CalendarDetailModal({
             <input
               type="datetime-local"
               name="start"
-              value={formData.start?.toISOString().slice(0, 16)}
+              value={
+                formData.start ? toLocalDatetimeInputValue(formData.start) : ""
+              }
               onChange={handleChange}
               required
             />
@@ -96,7 +101,9 @@ export function CalendarDetailModal({
             <input
               type="datetime-local"
               name="end"
-              value={formData.end?.toISOString().slice(0, 16)}
+              value={
+                formData.end ? toLocalDatetimeInputValue(formData.end) : ""
+              }
               onChange={handleChange}
               required
             />
