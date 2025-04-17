@@ -7,11 +7,21 @@ import { useNavigate } from "react-router";
 import { establishGoogleData } from "./utils/googleApi.util";
 import { Header } from "./components/Header";
 import { ViewOption } from "./types/types";
+import { useIsMobile } from "./hooks/useIsMobile";
 
 function App() {
+  const isMobile = useIsMobile();
   const { calendarData, setCalendarDataWithSync } = useCalendarDataContext();
   const [loading, setLoading] = useState(calendarData.events.length === 0);
   const [initialCall, setInitialCall] = useState(false);
+  const [view, setView] = useState<ViewOption>(isMobile ? "List" : "Calendar");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isMobile && view === "Calendar") {
+      setView("List");
+    }
+  }, [isMobile, view]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -42,9 +52,6 @@ function App() {
       fetchEvents();
     }
   }, [calendarData, initialCall, setCalendarDataWithSync]);
-
-  const [view, setView] = useState<ViewOption>("Calendar");
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!calendarData.accessToken) {

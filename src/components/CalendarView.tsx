@@ -111,8 +111,8 @@ export function CalendarView() {
 
             {Array.from({ length: monthDays }).map((_, index) => (
               <div key={index} className="calendar-day">
-                <span className="day-number">
-                  {index + 1}
+                <span>{index + 1}</span>
+                <div className="day-events">
                   {getDayEvents(index + 1).map((dayEvent) => {
                     return (
                       <div
@@ -120,12 +120,17 @@ export function CalendarView() {
                         className="event"
                         onClick={() => setSelectedEvent(dayEvent)}
                       >
-                        {dayEvent.title}
-                        <p>{dayEvent.description}</p>
+                        <p className="event-time">
+                          {dayEvent.start.toLocaleTimeString("default", {
+                            hour: "numeric",
+                            hour12: true,
+                          })}
+                        </p>
+                        <p>{dayEvent.title}</p>
                       </div>
                     );
                   })}
-                </span>
+                </div>
               </div>
             ))}
           </div>
